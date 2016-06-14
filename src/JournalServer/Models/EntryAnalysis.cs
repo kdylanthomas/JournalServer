@@ -15,5 +15,7 @@ namespace JournalServer.Models
         public decimal Sadness { get; set; }
         public decimal Sentiment { get; set; }
         public int UserId { get; set; }
+
+        public User User { get; set; }
     }
 }

@@ -8,9 +8,10 @@ using JournalServer.Models;
 namespace JournalServer.Migrations
 {
     [DbContext(typeof(JournalContext))]
-    partial class JournalContextModelSnapshot : ModelSnapshot
+    [Migration("20160614224617_Entry-FKs")]
+    partial class EntryFKs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rc2-20901")
@@ -61,8 +62,6 @@ namespace JournalServer.Migrations
 
                     b.HasKey("EntryAnalysisId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("EntryAnalysis");
                 });
 
@@ -89,14 +88,6 @@ namespace JournalServer.Migrations
                         .HasForeignKey("EntryAnalysisId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("JournalServer.Models.User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("JournalServer.Models.EntryAnalysis", b =>
-                {
                     b.HasOne("JournalServer.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")

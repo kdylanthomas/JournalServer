@@ -13,5 +13,9 @@ namespace JournalServer.Models
         public DateTime DateCreated { get; set; }
         public int UserId { get; set; }
         public int EntryAnalysisId { get; set; }
+
+        // establish one-to-many relationships
+        public User User { get; set; }
+        public EntryAnalysis EntryAnalysis { get; set; }
     }
 }
