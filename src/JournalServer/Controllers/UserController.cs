@@ -113,8 +113,23 @@ namespace JournalServer.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            User user = _context.User.Single(u => u.UserId == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _context.User.Remove(user);
+            _context.SaveChanges();
+
+            return Ok(user);
         }
 
         private bool UserExists(string username)
