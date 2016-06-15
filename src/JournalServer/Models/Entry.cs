@@ -12,10 +12,8 @@ namespace JournalServer.Models
         public int WordCount { get; set; }
         public DateTime DateCreated { get; set; }
         public int UserId { get; set; }
-        public int EntryAnalysisId { get; set; }
 
-        // establish one-to-many relationships
+        // establish foreign key
         public User User { get; set; }
-        public EntryAnalysis EntryAnalysis { get; set; }
     }
 }

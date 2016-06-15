@@ -15,7 +15,10 @@ namespace JournalServer.Models
         public decimal Sadness { get; set; }
         public decimal Sentiment { get; set; }
         public int UserId { get; set; }
+        public int EntryId { get; set; }
 
+        // establish foreign keys
         public User User { get; set; }
+        public Entry Entry { get; set; }
     }
 }
