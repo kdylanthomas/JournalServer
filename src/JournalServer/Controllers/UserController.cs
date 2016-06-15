@@ -166,12 +166,3 @@ namespace JournalServer.Controllers
         }
     }
 }
-// sentiment
-// {"results": 0.8048498276364369}
-
-// emotion
-// {"results": {"anger": 0.18475764989852905, 
-// "joy": 0.17633318901062012, 
-// "sadness": 0.3714785575866699,
-// "fear": 0.17282727360725403, 
-// "surprise": 0.09460332989692688}}
