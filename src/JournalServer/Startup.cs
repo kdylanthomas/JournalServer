@@ -42,7 +42,7 @@ namespace JournalServer
             {
                 options.AddPolicy("AllowDevelopmentEnvironment",
                     builder => builder
-                    .WithHeaders("http://localhost:5000/api")
+                    .WithHeaders("http://localhost:5000/api/User")
                     .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader());

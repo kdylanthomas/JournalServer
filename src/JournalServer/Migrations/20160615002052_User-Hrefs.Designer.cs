@@ -8,9 +8,10 @@ using JournalServer.Models;
 namespace JournalServer.Migrations
 {
     [DbContext(typeof(JournalContext))]
-    partial class JournalContextModelSnapshot : ModelSnapshot
+    [Migration("20160615002052_User-Hrefs")]
+    partial class UserHrefs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rc2-20901")

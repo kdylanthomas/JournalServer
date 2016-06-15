@@ -11,5 +11,8 @@ namespace JournalServer.Models
         public string Username { get; set; }
         public string Location { get; set; }
         public DateTime DateRegistered { get; set; }
+      
+        public string Entries { get; set; }
+        public string EntryAnalyses { get; set; }
     }
 }
