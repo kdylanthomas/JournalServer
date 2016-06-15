@@ -102,14 +102,58 @@ namespace JournalServer.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody] Entry entry)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != entry.EntryId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(entry).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EntryExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return new StatusCodeResult(StatusCodes.Status204NoContent);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Entry entry = _context.JournalEntry.Single(e => e.EntryId == id);
+            if (entry == null)
+            {
+                return NotFound();
+            }
+
+            _context.JournalEntry.Remove(entry);
+            _context.SaveChanges();
+
+            return Ok(entry);
         }
 
         private bool EntryExists(int id)
