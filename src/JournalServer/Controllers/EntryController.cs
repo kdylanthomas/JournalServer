@@ -52,11 +52,24 @@ namespace JournalServer.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id}", Name="GetEntry")]
+        public IActionResult Get(int id)
         {
-            return "value";
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Entry entry = _context.JournalEntry.Single(e => e.EntryId == id);
+
+            if (entry == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(entry);
         }
+
 
         // POST api/values
         [HttpPost]
