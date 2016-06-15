@@ -107,8 +107,36 @@ namespace JournalServer.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody] User user)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != user.UserId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(user.Username))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return new StatusCodeResult(StatusCodes.Status204NoContent);
         }
 
         // DELETE api/values/5
