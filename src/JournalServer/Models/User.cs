@@ -9,7 +9,8 @@ namespace JournalServer.Models
     {
         public int UserId { get; set; }
         public string Username { get; set; }
-        public string Location { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public DateTime DateRegistered { get; set; }
       
         public string Entries { get; set; }

@@ -33,8 +33,9 @@ namespace JournalServer.Controllers
                                        {
                                            user.UserId,
                                            user.Username,
+                                           user.FirstName,
+                                           user.LastName,
                                            user.DateRegistered,
-                                           user.Location,
                                            Entries = "api/Entry?UserId=" + user.UserId,
                                            EntryAnalyses = "api/EntryAnalysis?UserId=" + user.UserId
                                        };
