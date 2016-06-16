@@ -10,7 +10,8 @@ namespace JournalServer.Models
         public int EntryId { get; set; }
         public string Text { get; set; }
         public int WordCount { get; set; }
-        public DateTime DateCreated { get; set; }
+        public DateTime DateStarted { get; set; }
+        public DateTime DateSubmitted { get; set; }
         public int UserId { get; set; }
 
         // establish foreign key

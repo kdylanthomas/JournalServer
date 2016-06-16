@@ -37,12 +37,12 @@ namespace JournalServer
             // Add framework services.
             services.AddMvc();
 
-            // Alllow any header and any method on a request from  my local development machine
+            // Alllow any header and any method on a request from my local development machine
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowDevelopmentEnvironment",
                     builder => builder
-                    .WithHeaders("http://localhost:5000/api/User")
+                    .WithHeaders("http://localhost:5000/api")
                     .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader());
@@ -54,7 +54,6 @@ namespace JournalServer
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
             app.UseMvc();
         }
     }
