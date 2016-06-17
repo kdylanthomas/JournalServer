@@ -28,17 +28,21 @@ namespace JournalServer.Controllers
                 return BadRequest(ModelState);
             }
 
-            IQueryable<object> users = from user in _context.User
-                                       select new
+            IQueryable<User> users = from user in _context.User
+                                       select new User
                                        {
-                                           user.UserId,
-                                           user.Username,
-                                           user.FirstName,
-                                           user.LastName,
-                                           user.DateRegistered,
+                                           UserId = user.UserId,
+                                           Username = user.Username,
+                                           FirstName = user.FirstName,
+                                           LastName = user.LastName,
+                                           DateRegistered = user.DateRegistered,
                                            Entries = "api/Entry?UserId=" + user.UserId,
                                            EntryAnalyses = "api/EntryAnalysis?UserId=" + user.UserId
                                        };
+
+            if (username != null) {
+                users = users.Where(u => u.Username == username);
+            }
 
             if (users == null)
             {
