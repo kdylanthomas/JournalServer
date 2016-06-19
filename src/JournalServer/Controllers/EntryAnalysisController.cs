@@ -7,6 +7,7 @@ using JournalServer.Models;
 using Microsoft.Data.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Cors;
+using JournalServer.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -33,27 +34,42 @@ namespace JournalServer.Controllers
                 return BadRequest(ModelState);
             }
 
-            // select all analyses from db
-            IQueryable<EntryAnalysis> entryAnalysis = from ea in _context.EntryAnalysis
-                                      select ea;
+            IQueryable<EntryInsight> entryInsight = from ea in _context.EntryAnalysis
+                                                      join e in _context.JournalEntry
+                                                      on ea.EntryId equals e.EntryId
+                                                      select new EntryInsight
+                                                      {
+                                                          EntryAnalysisId = ea.EntryAnalysisId,
+                                                          UserId = ea.UserId,
+                                                          EntryId = ea.EntryId,
+                                                          Anger = ea.Anger,
+                                                          Joy = ea.Joy,
+                                                          Sadness = ea.Sadness,
+                                                          Surprise = ea.Surprise,
+                                                          Fear = ea.Fear,
+                                                          Sentiment = ea.Sentiment,
+                                                          DateStarted = e.DateStarted,
+                                                          DateSubmitted = e.DateSubmitted,
+                                                          WordCount = e.WordCount
+                                                      };
 
             // if a user ID is passed as param, return only their analyses
             if (UserId != null)
             {
-                entryAnalysis = entryAnalysis.Where(ea => ea.UserId == UserId);
+                entryInsight = entryInsight.Where(ea => ea.UserId == UserId);
             }
 
             // if an entry ID is passed as param, return only that entry's analyses
             if (EntryId != null)
             {
-                entryAnalysis = entryAnalysis.Where(ea => ea.EntryId == EntryId);
+                entryInsight = entryInsight.Where(ea => ea.EntryId == EntryId);
             }
-            if (entryAnalysis == null)
+            if (entryInsight == null)
             {
                 return NotFound();
             }
 
-            return Ok(entryAnalysis);
+            return Ok(entryInsight);
         }
 
         // GET api/values/5
