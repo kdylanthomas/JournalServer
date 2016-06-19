@@ -36,8 +36,8 @@ namespace JournalServer.Controllers
                                            FirstName = user.FirstName,
                                            LastName = user.LastName,
                                            DateRegistered = user.DateRegistered,
-                                           Entries = "api/Entry?UserId=" + user.UserId,
-                                           EntryAnalyses = "api/EntryAnalysis?UserId=" + user.UserId
+                                           Entries = "Entry?UserId=" + user.UserId,
+                                           EntryAnalyses = "EntryAnalysis?UserId=" + user.UserId
                                        };
 
             if (username != null) {
