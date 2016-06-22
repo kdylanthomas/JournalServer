@@ -129,7 +129,7 @@ namespace JournalServer.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != entryAnalysis.EntryId)
+            if (id != entryAnalysis.EntryAnalysisId)
             {
                 return BadRequest();
             }
